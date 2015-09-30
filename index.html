@@ -1,0 +1,94 @@
+<html ng-app="myApp" lang='en'>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Class Composer</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="CSS/prism.css">
+  <link rel="stylesheet" href="CSS/framework.css">
+  <link rel="stylesheet" type="text/css" href="CSS/simple.css" />
+  <link rel="stylesheet" type="text/css" href="CSS/nested.css" />
+  <link rel="stylesheet" type="text/css" href="CSS/types.css" />
+  <link rel="stylesheet" type="text/css" href="CSS/advanced.css" />
+
+
+  <link rel="stylesheet" href="main.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.6/angular.min.js"></script>
+  <script type="text/javascript" src="javaScript/angular-drag-and-drop-lists.js"></script>
+</head>
+
+<body ng-controller="mainController"> 
+
+<script type="text/ng-template" id="student.html">
+{{student}}
+</script>
+
+
+<script type="text/ng-template" id="listByGender.html">
+    <ul dnd-list="listByGender.studentList"
+        dnd-allowed-types='listByGender.allowedGender'>
+        <li ng-repeat="student in listByGender.studentList | orderBy : 'id' "
+            dnd-draggable="student"
+            dnd-type="student.gender"
+            dnd-effect-allowed="move"
+            dnd-moved="listByGender.studentList.splice($index, 1)"
+            // dnd-selected="models.selected = item"
+            // ng-class="{selected: models.selected === item}"
+            ng-include="'student.html'">
+        </li>
+    </ul>
+</script>
+
+
+{{studentList[0].firstName}}
+
+<div class='gradeLevel'>
+      
+      <div layout='row' class='gradeLevelHeader'>
+            
+            <div flex='25' class='gradeLevelTitle'> {{gradeLevel.grade}}
+            </div>
+            <div flex='5' class='gradeLevelclassRoomsPreview' ng-repeat="classRoom in gradeLevel.classRoomList" ng-class="{gradeLevelclassRoomsPreviewExanded : classRoom.expand }" ng-click='classRoomExpand($index)'>
+            {{classRoom.teacher}} {{classRoom.expand}}
+            </div>
+            <div flex></div>
+
+      </div>
+      
+      
+      <div layout='row' class='gradeLevelBody'>
+            <div flex='25' class='classRoom' ng-repeat="classRoom in gradeLevel.classRoomList | filter : classRoomExpanded">     
+              <h2>{{classRoom.teacher}}</h2>
+              <div layout='row'>
+                  <div flex='50' class='genderList' ng-class='listByGender.label' ng-repeat="listByGender in classRoom.studentBlocks">
+                    <div class='genderListHeader'>
+                    {{listByGender.label}} : {{listByGender.studentList.length}}
+                    </div>
+                  <div ng-include=" 'listByGender.html' ">
+              </div>
+                </div>
+          </div>  
+          </div>
+      </div>
+
+
+
+</div>
+
+
+
+  	
+    <script type="text/javascript" src="javaScript/main.js"></script>
+    <script type="text/javascript" src="javaScript/studentList.js"></script>
+    
+</body>
+
+</html>

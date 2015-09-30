@@ -1,0 +1,146 @@
+/***************************** Required styles *****************************/
+
+/**
+ * For the correct positioning of the placeholder element, the dnd-list and
+ * it's children must have position: relative
+ */
+ ul[dnd-list],
+ ul[dnd-list] > li {
+	position: relative;
+}
+
+/***************************** Styling *****************************/
+
+/**
+ * The dnd-list should always have a min-height,
+ * otherwise you can't drop to it once it's empty
+ */
+  ul[dnd-list] {
+    min-height: 42px;
+    margin: 0px;
+    padding-left: 0px;
+}
+
+/**
+ * The dnd-lists's child elements currently MUST have
+ * position: relative. Otherwise we can not determine
+ * whether the mouse pointer is in the upper or lower
+ * half of the element we are dragging over. In other
+ * browsers we can use event.offsetY for this.
+ */
+  li {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    display: block;
+    padding: 0px;
+}
+
+/**
+ * Reduce opacity of elements during the drag operation. This allows the user
+ * to see where he is dropping his element, even if the element is huge. The
+ * .dndDragging class is automatically set during the drag operation.
+ */
+  .dndDragging {
+    opacity: 0.7;
+}
+
+/**
+ * The dndDraggingSource class will be applied to the source element of a drag
+ * operation. It makes sense to hide it to give the user the feeling that he's
+ * actually moving it. Note that the source element has also .dndDragging class.
+ */
+  .dndDraggingSource {
+    display: none;
+}
+
+/**
+ * An element with .dndPlaceholder class will be added as child of the dnd-list
+ * while the user is dragging over it.
+ */
+  .dndPlaceholder {
+    background-color: #ddd;
+    min-height: 42px;
+    display: block;
+    position: relative;
+}
+
+/***************************** Element Selection *****************************/
+
+  .selected .item {
+    color: #3c763d;
+    background-color: #dff0d8;
+}
+
+  .selected .box {
+    border-color: #d6e9c6;
+}
+
+ .selected .box > h3 {
+    color: #3c763d;
+    background-color: #dff0d8;
+    background-image: linear-gradient(to bottom,#dff0d8 0,#d0e9c6 100%);
+    border-color: #d6e9c6;
+}
+
+/***************************** Element type specific styles *****************************/
+
+
+ .item {
+    padding: 10px 15px;
+}
+
+ .container-element {
+    margin: 10px;
+}
+
+ .container-element .column {
+    float: left;
+    width: 50%;
+}
+
+/***************************** Toolbox *****************************/
+
+ .toolbox ul {
+    list-style: none;
+    padding-left: 0px;
+    cursor: move;
+}
+
+ .toolbox button {
+    margin: 5px;
+    width: 123px;
+    opacity: 1.0;
+}
+
+ .toolbox .dndDragging {
+    opacity: 0.5;
+}
+
+ .toolbox .dndDraggingSource {
+    opacity: 1.0;
+}
+
+/***************************** Trashcan *****************************/
+
+ .trashcan ul {
+    list-style: none;
+    padding-left: 0px;
+}
+
+ .trashcan img {
+    width: 100%;
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    filter: grayscale(100%);
+}
+
+ .trashcan .dndDragover img {
+    width: 100%;
+    -webkit-filter: none;
+    -moz-filter: none;
+    filter: none;
+}
+
+ .trashcan .dndPlaceholder {
+    display: none;
+}

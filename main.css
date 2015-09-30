@@ -1,0 +1,71 @@
+body {
+	font-family: 'Montserrat', sans-serif;
+}
+
+
+/*Class Room*/
+
+.gradeLevelHeader {
+	background-color: #607D8B; /*Blue Grey 500*/
+	padding: 5px;
+	margin : 5px;
+}
+
+.gradeLevelTitle {
+	font-size: 3rem;	
+	font-weight: bold;
+}
+
+.gradeLevelclassRoomsPreview {
+	background-color: #78909C; /*Blue Grey 400*/
+	margin: 5px;
+	padding: 5px;
+}
+
+.gradeLevelclassRoomsPreviewExanded, .gradeLevelclassRoomsPreview:hover{
+	background-color: #CFD8DC; /*Blue Grey 100*/
+}
+
+.gradeLevelclassRoomsPreviewExanded:hover {
+	background-color: #78909C; /*Blue Grey 400*/
+}
+
+
+
+.gradeLevelBody {
+	margin: 5px;
+	background-color: #CFD8DC; /*Blue Grey 100*/
+}
+
+.classRoom {
+	padding: 5px;
+	/*margin : 5px;   //breaks the flexx33*/
+	border: solid 5px #607D8B; /*Blue Grey 500*/
+}
+/*************/
+
+
+/*Student List by Gender*/
+
+.genderList {
+	padding : 5px;
+}
+.Boys {
+	
+	background-color: #B3E5FC;
+
+}
+.Girls {
+	background-color: #F8BBD0;
+}
+
+.genderListHeader {
+	border: solid 1px;
+}
+
+/*************/
+
+/*Student*/
+
+
+/*************/
