@@ -3,37 +3,19 @@ angular.module('myApp')
 
 		console.log('hello form studentList file')
 		
-		var studentFactoryList = []
-		// @param id    				number
-		// @param firstName   			String
-		// @param lastName	   			String
-		// @param gender  				String
-		// @param teacherID     		Number
-		// @param scores    			Object
-		// @param tags					Object
-		// @param targetTeacherId 		Number
-		// @param combinedStudentIds 	Array
-		// @param seperatedStudentIds	Array
-		var Student = function(id, firstName, lastName, gender, teacherId, scores, tags, targetTeacherId, combinedStudentIds,separatedStudentIds){
-			this.id = id
-			this.firstName   = firstName
-			this.lastName  = lastName
-			this.gender   = gender
-			this.teacherId = teacherId
-			this.scores    = scores
-			this.tags    = tags	
-			this.targetTeacherId = targetTeacherId
-			this.combinedStudentIds = combinedStudentIds
-			this.separatedStudentIds =separatedStudentIds
-			
-			// Push our new student object into our list of students
-			studentFactoryList.push(this)
-		}
+		var teachers     = [
+                            {"id":1,"firstName":"Jessica","lastName":"Mitchell","color":"rgb(79,129,189)"},
+                            {"id":2,"firstName":"Gordon","lastName":"Simpson","color":"rgb(192,80,77)"},
+                            {"id":3,"firstName":"Gabrielle","lastName":"Kelly","color":"rgb(133,171,52)"},
+                            {"id":4,"firstName":"Mary","lastName":"Roberts","color":"rgb(112,88,173)"},
+                            {"id":5,"firstName":"Sonia","lastName":"Hudson","color":"rgb(233,131,58)"},
+                            {"id":6,"firstName":"Steven","lastName":"Murray","color":"rgb(207,207,48)"},
+                            {"id":7,"firstName":"Carolyn","lastName":"Coleman","color":"rgb(34,151,119)"},
+                            {"id":8,"firstName":"Lisa","lastName":"Taylor","color":"rgb(186,103,186)"},
+                        ]
 
 
-		//new Student()
-
-		studentFactoryList     = [
+		var rawStudentObjectList     = [
     {"id":1,"firstName":"Michelle","lastName":"Oliver","gender":"FEMALE","teacherId":1,"scores":{"Reading":8,"Writing":8,"Math":7,"Behavior":4,"WorkSkills":6},"tags":{"GT":0,"GPV":1,"IEP":0,"BPL":0,"ELL":0,"RCC":0,"RT":0,"SPE":0,"FOF":0,"PT":0,"KLG":0,"BEN":0},"targetTeacherId":null,"combinedStudentIds":[],"separatedStudentIds":[6,3]},
     {"id":2,"firstName":"Ethan","lastName":"Ramirez","gender":"MALE","teacherId":1,"scores":{"Reading":8,"Writing":8,"Math":8,"Behavior":4,"WorkSkills":6},"tags":{"GT":0,"GPV":0,"IEP":0,"BPL":0,"ELL":0,"RCC":0,"RT":0,"SPE":0,"FOF":0,"PT":0,"KLG":0,"BEN":0},"targetTeacherId":null,"combinedStudentIds":[],"separatedStudentIds":[]},
     {"id":3,"firstName":"David","lastName":"Yee","gender":"MALE","teacherId":1,"scores":{"Reading":7,"Writing":6,"Math":7,"Behavior":6,"WorkSkills":7},"tags":{"GT":0,"GPV":0,"IEP":0,"BPL":0,"ELL":0,"RCC":0,"RT":0,"SPE":0,"FOF":0,"PT":0,"KLG":0,"BEN":0},"targetTeacherId":null,"combinedStudentIds":[],"separatedStudentIds":[1,6]},
@@ -145,10 +127,293 @@ angular.module('myApp')
     {"id":109,"firstName":"Jacob","lastName":"Middleton","gender":"MALE","teacherId":4,"scores":{"Reading":6,"Writing":2,"Math":4,"Behavior":3,"WorkSkills":3},"tags":{"GT":0,"GPV":0,"IEP":0,"BPL":0,"ELL":0,"RCC":0,"RT":0,"SPE":0,"FOF":1,"PT":0,"KLG":0,"BEN":0},"targetTeacherId":null,"combinedStudentIds":[],"separatedStudentIds":[85,102,96]},
 ]
 
+    
+        var studentFactoryList = []
+        // @param id                    number
+        // @param firstName             String
+        // @param lastName              String
+        // @param gender                String
+        // @param teacherID             Number
+        // @param scores                Object
+        // @param tags                  Object
+        // @param targetTeacherId       Number
+        // @param combinedStudentIds    Array
+        // @param seperatedStudentIds   Array
+
+
+        //academicAvg
+        //lifeSkillsAvg
+        //ranking
+        var Student = function(id, firstName, lastName, gender, teacherId, scores, tags, targetTeacherId, combinedStudentIds,separatedStudentIds){
+            this.id = id
+            this.firstName   = firstName
+            this.lastName  = lastName
+            this.gender   = gender
+            this.teacherId = teacherId
+            this.scores    = scores
+            this.tags    = tags 
+            this.targetTeacherId = targetTeacherId
+            this.combinedStudentIds = combinedStudentIds
+            this.separatedStudentIds =separatedStudentIds
+
+            //calculated property values
+            this.academicAvg = Math.round( ( (scores['Reading'] + scores['Writing'] + scores['Math']) /3 ) , -1)
+            this.lifeSkillsAvg = Math.round( ( (scores['Behavior'] + scores['WorkSkills'])/2 ), -1)
+
+            var rankCalculator = function (aAvg, lAvg) {
+                var rank = 0
+                var rankColor = ''
+                if (lAvg <=2) {
+                    rank = lAvg
+                    rankColor = 'Red'
+                } else if (lAvg === 3){
+                    rank = lAvg
+                    rankColor = 'Yellow'
+                } else if (aAvg <= 3) {
+                    rank = aAvg + 3
+                    rankColor = 'Orange'
+                } else if (aAvg <= 6) {
+                    rank = aAvg + 3
+                    rankColor = 'Green'
+                } else if (aAvg <= 9) {
+                    rank = aAvg + 3
+                    rankColor = 'Purple'
+                }
+
+                    
+                return {
+                    rank : rank,
+                    rankColor: rankColor,
+                }
+
+            }
+            this.ranking = rankCalculator(this.academicAvg, this.lifeSkillsAvg)
+            
+            // Push our new student object into our list of students
+            studentFactoryList.push(this)
+        }
+
+        rawStudentObjectList.forEach(function(rawStudentObject){
+            new Student (rawStudentObject.id,
+                            rawStudentObject.firstName,
+                            rawStudentObject.lastName,
+                            rawStudentObject.gender,
+                            rawStudentObject.teacherId,     
+                            rawStudentObject.scores,
+                            rawStudentObject.tags,
+                            rawStudentObject.targetTeacherId,
+                            rawStudentObject.combinedStudentIds,
+                            rawStudentObject.seperatedStudentIds
+                        )
+        })// created roaster of students for this grade
+        
+        
+        
+
+        // //verify the teacher IDs
+        // var teacherIdList = studentFactoryList.map(function(element){
+        //     return element.teacherId
+        // })
+        //     console.log( _.unique(teacherIdList))
+
+        // //Boys and Girls
+        // var gradeLevelMaleStudents = studentFactoryList.filter(function(element){
+        //     return element.gender === 'MALE'
+        // })
+        // var gradeLevelFemaleStudents = studentFactoryList.filter(function(element){
+        //     return element.gender === 'FEMALE'
+        // })
+        // console.log('Male count:', gradeLevelMaleStudents.length)
+        // console.log('Female count:', gradeLevelFemaleStudents.length)
+
+
+        
+        var studentBlockFactoryList = []       //Array of 2 student Block objects
+        // @param label                 String: "Boys" or "Girls"
+        // @param allowedGender         Array: [ 'boy'] or ['girl']
+        // @param studentList           Array: of student objects
+        var StudentBlock = function (label, allowedGender, studentList) {
+            this.label = label
+            this.allowedGender = allowedGender
+            this.studentList = studentList
+            console.log('studentList length from Block Factory:', studentList.length)
+            
+            //push our new studentBlock object into our list of Blocks
+            studentBlockFactoryList.push(this)
+        }
+
+        var classRoomFactoryList = []
+        //@param id             //Number
+        //@param teacher        //string
+        //@param expand         //boolean
+        //@param list           //the full grade level array of students
+        
+        //@param studentBlock   //array of studentList objects
+        //@param academic       //object academic scores {academicAvg: ,read: ,math: , writing: ,}
+        //@param lifeSkills     //object of life skills scores {lifeSkillsAvg: , behavior: , workSkills: ,}
+        //@param tags                  //array of NotDefinedYet
+        //@param lastTeacher           //array of NotDeinedYet
+        var ClassRoom = function (id, teacher, expand, list) {
+            this.id             = id
+            this.teacher        = teacher
+            this.expand         = expand 
+            
+                    
+                    
+                    var students = list.filter(function(element){
+                                        return element.teacherId === id
+                                        })
+
+                    var maleBlock = new StudentBlock('Boys', 'MALE', list.filter(function(element){
+                                        return (element.teacherId  === id && element.gender === 'MALE')
+                                        }))
+
+                    var femaleBlock = new StudentBlock('Girls', 'FEMALE', list.filter(function(element){
+                                        return (element.teacherId  === id && element.gender === 'FEMALE')
+                                        }) )
+
+
+            this.studentBlocks = [maleBlock, femaleBlock]
+            
+            var AcademicCalculator = function () {
+                var academicAvg = 0
+                var read = 0
+                var math = 0
+                var writing = 0
+
+                students.forEach(function(element){
+                            read    += element.scores['Reading']
+                            math    += element.scores['Writing']
+                            writing += element.scores['Math']
+                        })
+                academicAvg = Math.round( (read + math + writing)/ (3 * students.length) )
+
+                return {
+                        academicAvg : academicAvg,
+                        read : read/students.length,
+                        math : math/students.length,
+                        writing : writing/students.length,
+                        }
+            }
+
+            this.academic       = AcademicCalculator()
+
+            var lifeSkillsCalculator     = function () {
+                var lifeSkillsAvg = 0
+                var behavior = 0
+                var workSkills = 0
+                students.forEach(function(element){
+                    behavior    += element.scores['Behavior']
+                    workSkills    += element.scores['WorkSkills']
+                    
+                })
+                lifeSkillsAvg = Math.round( (behavior + workSkills)/ (2 * students.length) )
+
+                return {
+                            lifeSkillsAvg : lifeSkillsAvg,
+                            behavior : behavior/students.length,
+                            workSkills : workSkills/students.length,
+                        }
+
+            }
+            
+            this.lifeSkills      = lifeSkillsCalculator()
+
+            this.tags          = []
+            
+            this.lastTeacher    = [] 
+
+            //push our new classRoom object into our list of classRooms 
+            classRoomFactoryList.push(this)
+
+        } 
+
+        //compose classRooms based on teacher IDs
+        var classRoom1 = new ClassRoom(1, 'Jessica', true, studentFactoryList)
+        var classRoom2 = new ClassRoom(2, 'Gordon', true, studentFactoryList)
+        var classRoom3 = new ClassRoom(3, 'Gabriel',true, studentFactoryList)
+        var classRoom4 = new ClassRoom(4, 'Marie', true, studentFactoryList)
+
+
+        var schoolGradeFactoryList =[]
+        //@param grade              String
+        //@param id                 Number
+        //@param  classRoomList     Array of classRoom objects => classRoomFactoryList
+        var SchoolGrade =function (grade, id, classRoomList) {
+            this.grade          = grade 
+            this.id             = id 
+            this.classRoomList  = classRoomList
+
+            //push our new studentGrade object into our list of studentGradeLevels
+            schoolGradeFactoryList.push(this)
+
+        }
+
+        SchoolGrade('Grade3', 3, classRoomFactoryList)
+
+
 
 
 		return {
 				Student     : Student,
 				studentFactoryList :studentFactoryList,
+                schoolGradeFactoryList : schoolGradeFactoryList,
 				}
 }])
+
+
+
+
+
+
+
+                // function studentProfileGenerator () {
+                //     studentFactoryList.forEach(function(element){
+                //         console.log(element.id)
+                //         // console.log(element.firstName)
+                //         // console.log(element.lastName)
+                //         // console.log(element.gender)
+                //         // console.log(element.teacherId)
+                //         // console.log(element.scores)
+                //         //     for (var key in element.scores) {
+                //         //         console.log('key:', key)
+                //         //         console.log('value:', element.scores[key])
+                //         //     }
+                //         //     console.log(element.scores['Reading'])
+                //         //     console.log(element.scores['Writing'])
+                //         //     console.log(element.scores['Math'])
+                //         //     console.log(element.scores['Behavior'])
+                //         //     console.log(element.scores['WorkSkills'])
+                //         // console.log('Tags:', element.tags)
+                //         //     for (var key in element.tags) {
+                //         //         console.log('key:', key)
+                //         //         console.log('value:', element.tags[key])
+                //         //     }
+
+                //         // console.log(element.targetTeacherId)
+                //         // console.log(element.combinedStudentIds)
+                //         // console.log(element.separatedStudentIds)
+                //         //     element.separatedStudentIds.forEach(function(seperatedId){
+                //         //         console.log(seperatedId)
+                //         //     })
+                //         console.log('**********************')
+                //         var academicAvg = Math.round( ( (element.scores['Reading'] + element.scores['Writing'] + element.scores['Math']) /3 ) , -1)
+                //         console.log('Academic Avg:' , academicAvg)
+                //         var lifeSkillsAvg = Math.round( ( (element.scores['Behavior'] + element.scores['WorkSkills'])/2 ), -1)
+                //         console.log('lifeSkillsAvg:', lifeSkillsAvg)
+
+                //         console.log('**********************')
+                //         console.log('**********************')
+                //         console.log('**********************')
+
+
+
+                //     })
+                //     // return (element.score.Reading + element.score.Writing + element.scores.Math) /3
+                //      console.log('Total Number of Students in this Grade:', studentFactoryList.length)
+                    
+                     
+                // }
+
+
+                // studentProfileGenerator()

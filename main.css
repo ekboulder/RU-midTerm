@@ -3,6 +3,88 @@ body {
 }
 
 
+/*************//*************//*************/
+		/*Extracted from simple.css*/
+/*************//*************//*************/
+
+/**
+ * For the correct positioning of the placeholder element, the dnd-list and
+ * it's children must have position: relative
+ */
+  ul[dnd-list],
+  ul[dnd-list] > li {
+	position: relative;
+}
+
+/**
+ * The dnd-list should always have a min-height,
+ * otherwise you can't drop to it once it's empty
+ */
+  ul[dnd-list] {
+    min-height: 42px;
+    padding-left: 0px;
+}
+
+/**
+ * The dndDraggingSource class will be applied to
+ * the source element of a drag operation. It makes
+ * sense to hide it to give the user the feeling
+ * that he's actually moving it.
+ */
+  ul[dnd-list] .dndDraggingSource {
+    display: none;
+}
+
+/**
+ * An element with .dndPlaceholder class will be
+ * added to the dnd-list while the user is dragging
+ * over it.
+ */
+  ul[dnd-list] .dndPlaceholder {
+    display: block;
+    background-color: #ddd;
+    min-height: 42px;
+}
+
+/**
+ * The dnd-lists's child elements currently MUST have
+ * position: relative. Otherwise we can not determine
+ * whether the mouse pointer is in the upper or lower
+ * half of the element we are dragging over. In other
+ * browsers we can use event.offsetY for this.
+ */
+ 
+ ul[dnd-list] li {
+    background-color: #fff;
+    /*border: 1px solid #ddd;*/
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    display: block;
+    /*padding: 10px 15px;*/
+    /*margin-bottom: -1px;*/
+}
+
+
+/**
+ * Show selected elements in green
+ */
+
+/*  ul[dnd-list] li.selected {
+    background-color: #dff0d8;
+    color: #3c763d;
+}*/
+
+
+
+/*************//*************//*************/
+	/*End of Extracted from simple.css*/
+/*************//*************//*************/
+
+
+
+
+
+
 /*Class Room*/
 
 .gradeLevelHeader {
@@ -20,10 +102,16 @@ body {
 	background-color: #78909C; /*Blue Grey 400*/
 	margin: 5px;
 	padding: 5px;
+	border: solid 3px #F44336; /*Red 500*/
 }
 
-.gradeLevelclassRoomsPreviewExanded, .gradeLevelclassRoomsPreview:hover{
+.gradeLevelclassRoomsPreview:hover {
 	background-color: #CFD8DC; /*Blue Grey 100*/
+}
+
+.gradeLevelclassRoomsPreviewExanded {
+	background-color: #CFD8DC; /*Blue Grey 100*/
+	border: solid 3px #009688; /*Teal 500*/
 }
 
 .gradeLevelclassRoomsPreviewExanded:hover {
@@ -37,11 +125,39 @@ body {
 	background-color: #CFD8DC; /*Blue Grey 100*/
 }
 
+/*************/
+
+/* classRoom */
 .classRoom {
 	padding: 5px;
 	/*margin : 5px;   //breaks the flexx33*/
 	border: solid 5px #607D8B; /*Blue Grey 500*/
 }
+
+.classRoomHeader {
+	/*border: solid 3px #009688;*/
+}
+
+.classRoomTeacher {
+	/*border: solid 3px #009688;*/
+}
+
+.classRoomDashboard {
+	/*border: solid 3px #009688;*/
+}
+
+.classRoomUpper {
+	/*border: solid 3px #009688;*/
+}
+
+.classRoomLower {
+	/*border: solid 3px #009688;*/
+}
+
+.classRoomBody {
+	/*border: solid 3px #009688;*/
+}
+
 /*************/
 
 
@@ -50,13 +166,32 @@ body {
 .genderList {
 	padding : 5px;
 }
+
 .Boys {
 	
-	background-color: #B3E5FC;
+	background-color: #B3E5FC; /*Light Blue 100*/
 
 }
 .Girls {
-	background-color: #F8BBD0;
+	background-color: #F8BBD0; /*Pink 100*/
+}
+
+.Red {
+	background-color: red;
+}
+
+.Yellow {
+	background-color: yellow;
+}
+.orange {
+	background-color: orange;
+}
+.Green {
+	background-color: green;
+}
+
+.Purple {
+	background-color: purple;
 }
 
 .genderListHeader {
@@ -67,5 +202,49 @@ body {
 
 /*Student*/
 
+.studentCard {
+}
+
+.MALE, .FEMALE {
+	border: solid 2px;
+	padding: 10px 15px;
+}
+
+.MALE {
+	border-color: #B3E5FC; /*Light Blue 100*/
+}
+
+.FEMALE {
+	border-color: #F8BBD0; /*Pink 100*/
+}
+
+.studentAcademicAvg {	
+}
+
+.studentName {
+
+}
+
+.studentLastYearTeacher {
+
+}
+
+.studentLifeSkillsAvg {
+
+}
+
+.studentLabels {
+
+}
+
+.studentConstraints {
+
+}
+
 
 /*************/
+
+
+
+
+

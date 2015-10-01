@@ -8,17 +8,19 @@
   <!-- Optional theme -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 
-   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
-    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
+  <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 
-  <link rel="stylesheet" href="CSS/prism.css">
-  <link rel="stylesheet" href="CSS/framework.css">
-  <link rel="stylesheet" type="text/css" href="CSS/simple.css" />
-  <link rel="stylesheet" type="text/css" href="CSS/nested.css" />
-  <link rel="stylesheet" type="text/css" href="CSS/types.css" />
-  <link rel="stylesheet" type="text/css" href="CSS/advanced.css" />
+  <!-- <link rel="stylesheet" href="CSS/prism.css"> -->
+  <!-- <link rel="stylesheet" href="CSS/framework.css"> -->
+  <!-- <link rel="stylesheet" type="text/css" href="CSS/simple.css" /> -->
+  <!-- <link rel="stylesheet" type="text/css" href="CSS/nested.css" /> -->
+  <!-- <link rel="stylesheet" type="text/css" href="CSS/types.css" /> -->
+  <!-- <link rel="stylesheet" type="text/css" href="CSS/advanced.css" /> -->
 
+  <!-- added for the icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
   <link rel="stylesheet" href="main.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.6/angular.min.js"></script>
@@ -28,27 +30,34 @@
 <body ng-controller="mainController"> 
 
 <script type="text/ng-template" id="student.html">
-{{student}}
+        <div layout='row' class='studentCard' ng-class='[student.gender, student.ranking.rankColor]'>
+              <div flex=10 class='studentAcademicAvg'>{{student.academicAvg}}</div>
+              <div flex=30 class='studentName'>{{student.firstName}} {{student.lastName.charAt(0)}}.</div>
+              <div flex=10 class='studentLastYearTeacher'>MC</div>
+              <div flex=10 class='studentConstraints'>
+                    <i class="material-icons">lock_outline</i>
+              </div>
+              <div flex=10 class='studentLabels'>
+                    <i class="material-icons">link</i>
+              </div>
+              <div flex></div>
+              <div flex=5 class='studentLifeSkillsAvg '>{{student.lifeSkillsAvg}}</div>
+        </div> 
 </script>
 
 
 <script type="text/ng-template" id="listByGender.html">
     <ul dnd-list="listByGender.studentList"
         dnd-allowed-types='listByGender.allowedGender'>
-        <li ng-repeat="student in listByGender.studentList | orderBy : 'id' "
+        <li ng-repeat="student in listByGender.studentList | orderBy : '-ranking.rank' "
             dnd-draggable="student"
             dnd-type="student.gender"
             dnd-effect-allowed="move"
-            dnd-moved="listByGender.studentList.splice($index, 1)"
-            // dnd-selected="models.selected = item"
-            // ng-class="{selected: models.selected === item}"
+            dnd-moved="listByGender.studentList.splice(indexof(listByGender.studentList($index)), 1)"
             ng-include="'student.html'">
         </li>
     </ul>
 </script>
-
-
-{{studentList[0].firstName}}
 
 <div class='gradeLevel'>
       
@@ -65,19 +74,46 @@
       
       
       <div layout='row' class='gradeLevelBody'>
-            <div flex='25' class='classRoom' ng-repeat="classRoom in gradeLevel.classRoomList | filter : classRoomExpanded">     
-              <h2>{{classRoom.teacher}}</h2>
-              <div layout='row'>
-                  <div flex='50' class='genderList' ng-class='listByGender.label' ng-repeat="listByGender in classRoom.studentBlocks">
-                    <div class='genderListHeader'>
-                    {{listByGender.label}} : {{listByGender.studentList.length}}
+          <div flex='33' class='classRoom' ng-repeat="classRoom in gradeLevel.classRoomList | filter : classRoomExpanded">     
+              
+              <div layout='row' class='classRoomHeader'>
+                    <div flex='25' class="ClassRoomTeacher">
+                        <h2>{{classRoom.teacher}}</h2>
+                    </div> <!-- flex 25 -->
+                    <div flex='75' class='classRoomDashboard'>
+                        <div layout='row' class='classRoomUpper'>
+                              <div flex='50' class='classRoomAcademicAvg'>
+                                  <i class="material-icons">web</i>
+                              </div>
+                              <div flex='50' class='classRoomLifeSkillsAvg'>
+                                  <i class="material-icons">web</i>
+                              </div> 
+                        </div>
+                        <div layout='row' class='classRoomLower'>
+                              <div flex='50' class='classRoomLastTeacher'>
+                                  <i class="material-icons">web</i>
+                              </div>
+                              <div flex='50' class='classRoomIdentified'>
+                                <i class="material-icons">web</i>
+                              </div>
+                        </div>
+                    </div> <!-- flex 75 -->
+              </div> <!-- row classRoomHeader -->
+              
+
+              <div layout='row' class='classRoomBody'>
+                    <div flex='50' class='genderList' ng-class='listByGender.label' ng-repeat="listByGender in classRoom.studentBlocks">
+                            <div class='genderListHeader'>
+                            {{listByGender.label}} : {{listByGender.studentList.length}}
+                            </div>
+                            <div ng-include=" 'listByGender.html' ">
+                            </div>
                     </div>
-                  <div ng-include=" 'listByGender.html' ">
-              </div>
-                </div>
-          </div>  
-          </div>
-      </div>
+              </div> <!-- row classRoomBody -->
+          
+
+         </div> <!-- classRoom -->
+      </div> <!-- gradeLevelBody -->
 
 
 
@@ -85,7 +121,7 @@
 
 
 
-  	
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
     <script type="text/javascript" src="javaScript/main.js"></script>
     <script type="text/javascript" src="javaScript/studentList.js"></script>
     

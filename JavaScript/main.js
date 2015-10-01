@@ -7,238 +7,257 @@ angular.module('myApp',['dndLists']) // dndlists is a dependency module
 var mainControllerFunc = function ($scope, studentFactory) {
 
 	$scope.studentList = studentFactory.studentFactoryList
+	console.log('total Number of Students: ', $scope.studentList.length)
+
+	$scope.gradeLevel = studentFactory.schoolGradeFactoryList[0]
+
+	console.log($scope.gradeLevel.grade)
+	console.log($scope.gradeLevel.id)
+	console.log($scope.gradeLevel.classRoomList.length)
+	console.log($scope.gradeLevel.classRoomList[0].teacher)
+	console.log($scope.gradeLevel.classRoomList[0].expand)
+	console.log('academic:', $scope.gradeLevel.classRoomList[0].academic)
+	console.log('lifeSkills:',$scope.gradeLevel.classRoomList[0].lifeSkills)
+	console.log($scope.gradeLevel.classRoomList[0].tags)
+	console.log($scope.gradeLevel.classRoomList[0].lastTeacher)
+	console.log('studentBlocks:',$scope.gradeLevel.classRoomList[0].studentBlocks)
+	console.log('studentBlocks label:',$scope.gradeLevel.classRoomList[0].studentBlocks[0].label)
+	console.log('studentBlocks allowed Gender:',$scope.gradeLevel.classRoomList[0].studentBlocks[0].allowedGender)
+	console.log('studentList size inside of a Block:',$scope.gradeLevel.classRoomList[0].studentBlocks[0].studentList)
 
 
 	
-	$scope.gradeLevel =  {
-		grade: 'Grade 3',
-		id : 3,
-		classRoomList : [ 
-		{	teacher : 'teacher1',
-			expand	: true,
-			academic : {
-				academicAvg : 6.4,
-				read : 8,
-				math : 6,
-				writing : 7,
-			},
-			lifeSkills : {
-				lifeSkillsAvg : 7.4,
-				behavior : 8.1,
-				workSkills : 7,
-			},
-			tags : [],
-			lastTeacher : [],
-			studentBlocks : [
+
+	
+// 	$scope.gradeLevel =  {
+// 		grade: 'Grade 3',
+// 		id : 3,
+// 		classRoomList : [ 
+// 		{	teacher : 'teacher1',
+// 			expand	: true,
+// 			academic : {
+// 				academicAvg : 6.4,
+// 				read : 8,
+// 				math : 6,
+// 				writing : 7,
+// 			},
+// 			lifeSkills : {
+// 				lifeSkillsAvg : 7.4,
+// 				behavior : 8.1,
+// 				workSkills : 7,
+// 			},
+// 			tags : [],
+// 			lastTeacher : [],
+// 			studentBlocks : [
 				
-				{
-					label : 'Boys',
-					allowedGender : ['boy'],
-					studentList : [
-						{
-							id: 0,
-							gender: 'boy'
-						},
-						{
-							id: 2,
-							gender: 'boy'
-						},
-						{
-							id: 4,
-							gender: 'boy'
-						},
-					],
-				},
-				{
-					label : 'Girls',
-					allowedGender : ['girl'],
-					studentList : [
-						{
-							id: 1,
-							gender: 'girl'
-						},
-						{
-							id: 3,
-							gender: 'girl'
-						},
-						{
-						id: 5,
-						gender: 'girl'
-						},
-					],
-				},
-			],
-		},
-		{	teacher : 'teacher2',
-			expand	: true,
-			academicAvg : {
-				academicScore : 6.4,
-				read : 8,
-				math : 6,
-				writing : 7,
-			},
-			lifeSkillsAvg : {
-				lifeSkillsScores : 7.4,
-				behavior : 8.1,
-				workSkills : 7
-			},
-			tags : [],
-			lastTeacher : [],
-			studentBlocks : [
+// 				{
+// 					label : 'Boys',
+// 					allowedGender : ['boy'],
+// 					studentList : [
+// 						{
+// 							id: 0,
+// 							gender: 'boy'
+// 						},
+// 						{
+// 							id: 2,
+// 							gender: 'boy'
+// 						},
+// 						{
+// 							id: 4,
+// 							gender: 'boy'
+// 						},
+// 					],
+// 				},
+// 				{
+// 					label : 'Girls',
+// 					allowedGender : ['girl'],
+// 					studentList : [
+// 						{
+// 							id: 1,
+// 							gender: 'girl'
+// 						},
+// 						{
+// 							id: 3,
+// 							gender: 'girl'
+// 						},
+// 						{
+// 						id: 5,
+// 						gender: 'girl'
+// 						},
+// 					],
+// 				},
+// 			],
+// 		},
+// 		{	teacher : 'teacher2',
+// 			expand	: true,
+// 			academicAvg : {
+// 				academicScore : 6.4,
+// 				read : 8,
+// 				math : 6,
+// 				writing : 7,
+// 			},
+// 			lifeSkillsAvg : {
+// 				lifeSkillsScores : 7.4,
+// 				behavior : 8.1,
+// 				workSkills : 7
+// 			},
+// 			tags : [],
+// 			lastTeacher : [],
+// 			studentBlocks : [
 				
-				{
-					label : 'Boys',
-					allowedGender : ['boy'],
-					studentList : [
-						{
-							id: 6,
-							gender: 'boy'
-						},
-						{
-							id: 7,
-							gender: 'boy'
-						},
-						{
-							id: 8,
-							gender: 'boy'
-						},
-					],
-				},
-				{
-					label : 'Girls',
-					allowedGender : ['girl'],
-					studentList : [
-						{
-							id: 9,
-							gender: 'girl'
-						},
-						{
-							id: 10,
-							gender: 'girl'
-						},
-						{
-						id: 11,
-						gender: 'girl'
-						},
-					],
-				},
-			],
+// 				{
+// 					label : 'Boys',
+// 					allowedGender : ['boy'],
+// 					studentList : [
+// 						{
+// 							id: 6,
+// 							gender: 'boy'
+// 						},
+// 						{
+// 							id: 7,
+// 							gender: 'boy'
+// 						},
+// 						{
+// 							id: 8,
+// 							gender: 'boy'
+// 						},
+// 					],
+// 				},
+// 				{
+// 					label : 'Girls',
+// 					allowedGender : ['girl'],
+// 					studentList : [
+// 						{
+// 							id: 9,
+// 							gender: 'girl'
+// 						},
+// 						{
+// 							id: 10,
+// 							gender: 'girl'
+// 						},
+// 						{
+// 						id: 11,
+// 						gender: 'girl'
+// 						},
+// 					],
+// 				},
+// 			],
 				
-		},
-		{	teacher : 'teacher3',
-			expand	: true,
-			academicAvg : {
-				academicScore : 6.4,
-				read : 8,
-				math : 6,
-				writing : 7,
-			},
-			lifeSkillsAvg : {
-				lifeSkillsScores : 7.4,
-				behavior : 8.1,
-				workSkills : 7
-			},
-			tags : [],
-			lastTeacher : [],
-			studentBlocks : [
+// 		},
+// 		{	teacher : 'teacher3',
+// 			expand	: true,
+// 			academicAvg : {
+// 				academicScore : 6.4,
+// 				read : 8,
+// 				math : 6,
+// 				writing : 7,
+// 			},
+// 			lifeSkillsAvg : {
+// 				lifeSkillsScores : 7.4,
+// 				behavior : 8.1,
+// 				workSkills : 7
+// 			},
+// 			tags : [],
+// 			lastTeacher : [],
+// 			studentBlocks : [
 				
-				{
-					label : 'Boys',
-					allowedGender : ['boy'],
-					studentList : [
-						{
-							id: 12,
-							gender: 'boy'
-						},
-						{
-							id: 13,
-							gender: 'boy'
-						},
-						{
-							id: 14,
-							gender: 'boy'
-						},
-					],
-				},
-				{
-					label : 'Girls',
-					allowedGender : ['girl'],
-					studentList : [
-						{
-							id: 15,
-							gender: 'girl'
-						},
-						{
-							id: 16,
-							gender: 'girl'
-						},
-						{
-						id: 17,
-						gender: 'girl'
-						},
-					],
-				},
-			],
+// 				{
+// 					label : 'Boys',
+// 					allowedGender : ['boy'],
+// 					studentList : [
+// 						{
+// 							id: 12,
+// 							gender: 'boy'
+// 						},
+// 						{
+// 							id: 13,
+// 							gender: 'boy'
+// 						},
+// 						{
+// 							id: 14,
+// 							gender: 'boy'
+// 						},
+// 					],
+// 				},
+// 				{
+// 					label : 'Girls',
+// 					allowedGender : ['girl'],
+// 					studentList : [
+// 						{
+// 							id: 15,
+// 							gender: 'girl'
+// 						},
+// 						{
+// 							id: 16,
+// 							gender: 'girl'
+// 						},
+// 						{
+// 						id: 17,
+// 						gender: 'girl'
+// 						},
+// 					],
+// 				},
+// 			],
 				
-		},
-		{	teacher : 'teacher4',
-			expand	: true,
-			academicAvg : {
-				academicScore : 6.4,
-				read : 8,
-				math : 6,
-				writing : 7,
-			},
-			lifeSkillsAvg : {
-				lifeSkillsScores : 7.4,
-				behavior : 8.1,
-				workSkills : 7
-			},
-			tags : [],
-			lastTeacher : [],
-			studentBlocks : [
+// 		},
+// 		{	teacher : 'teacher4',
+// 			expand	: true,
+// 			academicAvg : {
+// 				academicScore : 6.4,
+// 				read : 8,
+// 				math : 6,
+// 				writing : 7,
+// 			},
+// 			lifeSkillsAvg : {
+// 				lifeSkillsScores : 7.4,
+// 				behavior : 8.1,
+// 				workSkills : 7
+// 			},
+// 			tags : [],
+// 			lastTeacher : [],
+// 			studentBlocks : [
 				
-				{
-					label : 'Boys',
-					allowedGender : ['boy'],
-					studentList : [
-						{
-							id: 18,
-							gender: 'boy'
-						},
-						{
-							id: 19,
-							gender: 'boy'
-						},
-						{
-							id: 20,
-							gender: 'boy'
-						},
-					],
-				},
-				{
-					label : 'Girls',
-					allowedGender : ['girl'],
-					studentList : [
-						{
-							id: 21,
-							gender: 'girl'
-						},
-						{
-							id: 22,
-							gender: 'girl'
-						},
-						{
-						id: 23,
-						gender: 'girl'
-						},
-					],
-				},
-			],
+// 				{
+// 					label : 'Boys',
+// 					allowedGender : ['boy'],
+// 					studentList : [
+// 						{
+// 							id: 18,
+// 							gender: 'boy'
+// 						},
+// 						{
+// 							id: 19,
+// 							gender: 'boy'
+// 						},
+// 						{
+// 							id: 20,
+// 							gender: 'boy'
+// 						},
+// 					],
+// 				},
+// 				{
+// 					label : 'Girls',
+// 					allowedGender : ['girl'],
+// 					studentList : [
+// 						{
+// 							id: 21,
+// 							gender: 'girl'
+// 						},
+// 						{
+// 							id: 22,
+// 							gender: 'girl'
+// 						},
+// 						{
+// 						id: 23,
+// 						gender: 'girl'
+// 						},
+// 					],
+// 				},
+// 			],
 				
-		},
-	], //end of classRoomList array
-}//end of GradeLevel
+// 		},
+// 	], //end of classRoomList array
+// }//end of GradeLevel
 
 
 $scope.classRoomExpand = function (index) {
