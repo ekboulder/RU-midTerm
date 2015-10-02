@@ -29,95 +29,192 @@
 
 <body ng-controller="mainController"> 
 
-<script type="text/ng-template" id="student.html">
-        <div layout='row' class='studentCard' ng-class='[student.gender, student.ranking.rankColor]'>
-              <div flex=10 class='studentAcademicAvg'>{{student.academicAvg}}</div>
-              <div flex=30 class='studentName'>{{student.firstName}} {{student.lastName.charAt(0)}}.</div>
-              <div flex=10 class='studentLastYearTeacher'>MC</div>
-              <div flex=10 class='studentConstraints'>
-                    <i class="material-icons">lock_outline</i>
-              </div>
-              <div flex=10 class='studentLabels'>
-                    <i class="material-icons">link</i>
-              </div>
-              <div flex></div>
-              <div flex=5 class='studentLifeSkillsAvg '>{{student.lifeSkillsAvg}}</div>
-        </div> 
-</script>
+            <!-- the student Profile -->
+
+           <!--  <div ng-show="true" class='studentProfileShadow'>
+              <p>here</p>
+                  <div class='studentProfile'>
+                    <md-card layout="column">
+                        <md-content layout="row">
+                         <img ng-src="https://material.angularjs.org/0.11.1/img/washedout.png" class="md-card-image" alt="Washed Out" flex="25">
+                          <div>
+                            <h1>Title</h1>
+                          </div>
+                        </md-content>
+                         <md-card-content>
+                          {{student.name}}
+                           <h2 class="md-title">Paracosm</h2>
+                           <p>
+                             The titles of Washed Out's breakthrough song and the first single from Paracosm share the
+                             two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
+                           </p>
+                         </md-card-content>
+                         <div class="md-actions" layout="row" layout-align="end center">
+                           <md-button>Action 1</md-button>
+                           <md-button>Action 2</md-button>
+                         </div>
+                       </md-card>
+                  </div>
+
+            </div>
+ -->
+            <!-- Scripts for the ng-include templates -->
+
+            <script type="text/ng-template" id="student.html">
+                    <div layout='row' class='studentCard' ng-class='[student.gender, student.ranking.rankColor]'>
+                          <div flex=10 class='studentAcademicAvg'>{{student.academicAvg}}</div>
+                          <div flex=40 class='studentName'>{{student.firstName}} {{student.lastName.charAt(0)}}.</div>
+                          <div flex=10 class='studentLastYearTeacher'>MC</div>
+                          <div flex=10 class='studentConstraints'>
+                                <i class="material-icons">lock_outline</i>
+                          </div>
+                          <div flex=10 class='studentLabels'>
+                                <i class="material-icons">link</i>
+                          </div>
+                          <div flex></div>
+                          <div flex=5 class='studentLifeSkillsAvg '>{{student.lifeSkillsAvg}}</div>
+                    </div> 
+            </script>
+
+ 
+            <script type="text/ng-template" id="listByGender.html">
+                <ul dnd-list="listByGender.studentList" 
+                    dnd-allowed-types='listByGender.allowedGender'>
+
+                    <!-- <li ng-repeat="student in listByGender.studentList | orderBy : '-ranking.rank' track by $index"
+                        dnd-draggable="student"
+                        dnd-type="student.gender"
+                        dnd-effect-allowed="move"
+                        dnd-selected=""
+                        dnd-moved="listByGender.studentList.splice(indexof(listByGender.studentList[$index]), 1); logEvent('Element was inserted at position ' + index, event,$index, listByGender.studentList)"
+                        dnd-dragstart="logEvent('drag start: ' + index, event,$index, listByGender.studentList)"
+                        ng-include="'student.html'">
+                    </li>
+                    -->
 
 
-<script type="text/ng-template" id="listByGender.html">
-    <ul dnd-list="listByGender.studentList"
-        dnd-allowed-types='listByGender.allowedGender'>
-        <li ng-repeat="student in listByGender.studentList | orderBy : '-ranking.rank' "
-            dnd-draggable="student"
-            dnd-type="student.gender"
-            dnd-effect-allowed="move"
-            dnd-moved="listByGender.studentList.splice(indexof(listByGender.studentList($index)), 1)"
-            ng-include="'student.html'">
-        </li>
-    </ul>
-</script>
+                      <li ng-repeat="student in listByGender.studentList | orderBy : '-ranking.rank' track by $index"
+                        dnd-draggable="student"
+                        dnd-type="student.gender"
+                        dnd-effect-allowed="move"
+                        dnd-moved="onMove(student.id,listByGender.studentList)"
+                        ng-include="'student.html'">
+                    </li>
 
-<div class='gradeLevel'>
-      
-      <div layout='row' class='gradeLevelHeader'>
+                    <li class="dndPlaceholder">
+                    Drop any <strong>{{listByGender.allowedGender}}</strong> here
+                </li>
+
+                </ul>
+            </script>
+
             
-            <div flex='25' class='gradeLevelTitle'> {{gradeLevel.grade}}
-            </div>
-            <div flex='5' class='gradeLevelclassRoomsPreview' ng-repeat="classRoom in gradeLevel.classRoomList" ng-class="{gradeLevelclassRoomsPreviewExanded : classRoom.expand }" ng-click='classRoomExpand($index)'>
-            {{classRoom.teacher}} {{classRoom.expand}}
-            </div>
-            <div flex></div>
 
-      </div>
-      
-      
-      <div layout='row' class='gradeLevelBody'>
-          <div flex='33' class='classRoom' ng-repeat="classRoom in gradeLevel.classRoomList | filter : classRoomExpanded">     
-              
-              <div layout='row' class='classRoomHeader'>
-                    <div flex='25' class="ClassRoomTeacher">
-                        <h2>{{classRoom.teacher}}</h2>
-                    </div> <!-- flex 25 -->
-                    <div flex='75' class='classRoomDashboard'>
-                        <div layout='row' class='classRoomUpper'>
-                              <div flex='50' class='classRoomAcademicAvg'>
-                                  <i class="material-icons">web</i>
-                              </div>
-                              <div flex='50' class='classRoomLifeSkillsAvg'>
-                                  <i class="material-icons">web</i>
-                              </div> 
+
+             <!-- Main Screen -->
+
+
+            <div class='gradeLevel'>
+                  
+                  <div layout='row' class='gradeLevelHeader'>
+                        
+                        <div flex='25' class='gradeLevelTitle'> {{gradeLevel.grade}}
                         </div>
-                        <div layout='row' class='classRoomLower'>
-                              <div flex='50' class='classRoomLastTeacher'>
-                                  <i class="material-icons">web</i>
-                              </div>
-                              <div flex='50' class='classRoomIdentified'>
-                                <i class="material-icons">web</i>
-                              </div>
+                        <div flex='5' class='gradeLevelclassRoomsPreview' ng-repeat="classRoom in gradeLevel.classRoomList" ng-class="{gradeLevelclassRoomsPreviewExanded : classRoom.expand }" ng-click='classRoomExpand($index)'>
+                        {{classRoom.teacher}} {{classRoom.expand}}
                         </div>
-                    </div> <!-- flex 75 -->
-              </div> <!-- row classRoomHeader -->
-              
+                        <div flex></div>
 
-              <div layout='row' class='classRoomBody'>
-                    <div flex='50' class='genderList' ng-class='listByGender.label' ng-repeat="listByGender in classRoom.studentBlocks">
-                            <div class='genderListHeader'>
-                            {{listByGender.label}} : {{listByGender.studentList.length}}
-                            </div>
-                            <div ng-include=" 'listByGender.html' ">
-                            </div>
-                    </div>
-              </div> <!-- row classRoomBody -->
-          
-
-         </div> <!-- classRoom -->
-      </div> <!-- gradeLevelBody -->
+                  </div>
+                  
+                  
+                  <div layout='row' class='gradeLevelBody'>
+                      <div flex='33' class='classRoom' ng-repeat="classRoom in gradeLevel.classRoomList | filter : classRoomExpanded">     
+                          
+                          <div layout='row' class='classRoomHeader'>
+                                <div layout='column' flex='25' class="ClassRoomTeacher">
+                                    <h2>{{classRoom.teacher}}</h2>
+                                </div> <!-- flex 25 -->
+                                <div layout='column' flex='75' class='classRoomDashboard'>
+                                    <div layout='row' class='classRoomUpper'>
+                                          
 
 
+                                          <div layout='column' flex='50' class='classRoomAcademicAvg'>
+                                              <div class='header'>
+                                                  Academic Avg : {{classRoom.academic.academicAvg}}
+                                              </div>
+                                              <div layout='row' class='headerScores'>
 
-</div>
+                                                  <div flex='33'>
+                                                  R : {{classRoom.academic.read}}
+                                                  </div>
+                                                  <div flex='33'>
+                                                  M : {{classRoom.academic.math}}
+                                                  </div>
+                                                  <div flex='33'> 
+                                                  W : {{classRoom.academic.writing}}
+                                                  </div>
+                                             
+                                              </div>
+                                          </div> <!-- classRoomAcademicAvg -->
+                                          
+
+
+
+                                          <div layout='column' flex='50' class='classRoomLifeSkillsAvg'>
+                                              <div class='header'>
+                                                  Life Skills Avg : {{classRoom.lifeSkills.lifeSkillsAvg}}
+                                              </div>
+                                              <div layout='row' class='headerScores'>
+
+                                                  <div flex='50'>
+                                                  B : {{classRoom.lifeSkills.behavior}}
+                                                  </div>
+                                                  <div flex='50'>
+                                                  WS : {{classRoom.lifeSkills.workSkills}}
+                                                  </div>
+                                             
+                                              </div>
+
+
+                                          </div> <!-- classRoomAcademicAvg -->
+                                   
+
+
+
+
+
+
+                                    </div>
+                                    <div layout='row' class='classRoomLower'>
+                                          <div flex='50' class='classRoomLastTeacher'>
+                                              <i class="material-icons">web</i>
+                                              
+                                          </div>
+                                          <div flex='50' class='classRoomIdentified'>
+                                            <i class="material-icons">web</i>
+                                            
+                                          </div>
+                                    </div>
+                                </div> <!-- flex 75 -->
+                          </div> <!-- row classRoomHeader -->
+                          
+
+                          <div layout='row' class='classRoomBody'>
+                                <div flex='50' class='genderList' ng-class='listByGender.label' ng-repeat="listByGender in classRoom.studentBlocks">
+                                        <div class='genderListHeader'>
+                                        {{listByGender.label}} : {{listByGender.studentList.length}}
+                                        </div>
+                                        <div ng-include=" 'listByGender.html' ">
+                                        </div>
+                                </div>
+                          </div> <!-- row classRoomBody -->
+                      
+
+                     </div> <!-- classRoom -->
+                  </div> <!-- gradeLevelBody -->
+            </div> <!-- gradeLeveL -->
 
 
 

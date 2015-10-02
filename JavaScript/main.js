@@ -260,13 +260,78 @@ var mainControllerFunc = function ($scope, studentFactory) {
 // }//end of GradeLevel
 
 
-$scope.classRoomExpand = function (index) {
-	$scope.gradeLevel.classRoomList[index].expand = !$scope.gradeLevel.classRoomList[index].expand
-}
+	$scope.classRoomExpand = function (index) {
+		$scope.gradeLevel.classRoomList[index].expand = !$scope.gradeLevel.classRoomList[index].expand
+	}
 
-$scope.classRoomExpanded = function(classRoom) {
-	return classRoom.expand === true
-}
+	$scope.classRoomExpanded = function(classRoom) {
+		return classRoom.expand === true
+	}
+
+	$scope.logEvent = function(message, event, index, listByGender) {
+        console.log(message, '(triggered by the following', event.type, 'event)');
+        console.log(event);
+        console.log(listByGender[index])
+    };
+
+    $scope.onMove = function(passedId, listByGender){
+    		var selectedIndex;
+    		var selectedChild = listByGender.filter(
+        	function(child, index){
+            		if(child.id === passedId){
+                		selectedIndex = index
+                		return true
+    	        		}
+        		})[0]
+    		listByGender.splice(selectedIndex, 1) //splice to remove from Array.
+
+    		updateStats()
+    		console.log(selectedIndex, selectedChild)
+    		// newList.push(selectedChild)
+    		// oldList.splice(selectedIndex, 1)
+
+	}
+
+	var updateStats =function () {
+
+		$scope.gradeLevel.classRoomList.forEach(function(classRoom){
+    				
+    		console.log('hello:', classRoom)
+
+    		var academicCalc = function (students) {
+                        var academicAvg = 0
+                        var read = 0
+                        var math = 0
+                        var writing = 0
+
+                        students.forEach(function(element){
+                            read    += element.scores['Reading']
+                            math    += element.scores['Writing']
+                            writing += element.scores['Math']
+                        })
+                        academicAvg = Math.round( (read + math + writing)/ (3 * students.length) *10) /10
+
+                        return {
+                            academicAvg : academicAvg,
+                            read : Math.round (read/students.length *10) /10 ,
+                            math : Math.round (math/students.length * 10) /10,
+                            writing : Math.round(writing/students.length * 10) /10,
+                            }
+                    }
+
+                    var studentRoaster = []
+                    classRoom.studentBlocks.forEach(function(block){
+                    	block.studentList.forEach(function(student){
+                    			studentRoaster.push(student) 
+                    	})
+                    })
+                    classRoom.academic = academicCalc(studentRoaster)
+                    console.log('hi:',classRoom.academic)
+
+   		}) //end of $scope.gradeLevel.classRoomList.forEach
+   			
+    }     
+    
 
 } //end of mainControllerFunc
 

@@ -160,33 +160,33 @@ angular.module('myApp')
             this.academicAvg = Math.round( ( (scores['Reading'] + scores['Writing'] + scores['Math']) /3 ) , -1)
             this.lifeSkillsAvg = Math.round( ( (scores['Behavior'] + scores['WorkSkills'])/2 ), -1)
 
-            var rankCalculator = function (aAvg, lAvg) {
-                var rank = 0
-                var rankColor = ''
-                if (lAvg <=2) {
-                    rank = lAvg
-                    rankColor = 'Red'
-                } else if (lAvg === 3){
-                    rank = lAvg
-                    rankColor = 'Yellow'
-                } else if (aAvg <= 3) {
-                    rank = aAvg + 3
-                    rankColor = 'Orange'
-                } else if (aAvg <= 6) {
-                    rank = aAvg + 3
-                    rankColor = 'Green'
-                } else if (aAvg <= 9) {
-                    rank = aAvg + 3
-                    rankColor = 'Purple'
-                }
+                    var rankCalculator = function (aAvg, lAvg) {
+                        var rank = 0
+                        var rankColor = ''
+                        if (lAvg <=2) {
+                            rank = lAvg
+                            rankColor = 'Red'
+                        } else if (lAvg === 3){
+                            rank = lAvg
+                            rankColor = 'Yellow'
+                        } else if (aAvg <= 3) {
+                            rank = aAvg + 3
+                         rankColor = 'Orange'
+                         } else if (aAvg <= 6) {
+                            rank = aAvg + 3
+                            rankColor = 'Green'
+                        } else if (aAvg <= 9) {
+                            rank = aAvg + 3
+                            rankColor = 'Purple'
+                        }
 
                     
-                return {
-                    rank : rank,
-                    rankColor: rankColor,
-                }
+                        return {
+                            rank : rank,
+                            rankColor: rankColor,
+                        }
 
-            }
+                    }
             this.ranking = rankCalculator(this.academicAvg, this.lifeSkillsAvg)
             
             // Push our new student object into our list of students
@@ -206,25 +206,6 @@ angular.module('myApp')
                             rawStudentObject.seperatedStudentIds
                         )
         })// created roaster of students for this grade
-        
-        
-        
-
-        // //verify the teacher IDs
-        // var teacherIdList = studentFactoryList.map(function(element){
-        //     return element.teacherId
-        // })
-        //     console.log( _.unique(teacherIdList))
-
-        // //Boys and Girls
-        // var gradeLevelMaleStudents = studentFactoryList.filter(function(element){
-        //     return element.gender === 'MALE'
-        // })
-        // var gradeLevelFemaleStudents = studentFactoryList.filter(function(element){
-        //     return element.gender === 'FEMALE'
-        // })
-        // console.log('Male count:', gradeLevelMaleStudents.length)
-        // console.log('Female count:', gradeLevelFemaleStudents.length)
 
 
         
@@ -264,64 +245,64 @@ angular.module('myApp')
                                         return element.teacherId === id
                                         })
 
-                    var maleBlock = new StudentBlock('Boys', 'MALE', list.filter(function(element){
+                    var maleBlock = new StudentBlock('Boys', ['MALE'], list.filter(function(element){
                                         return (element.teacherId  === id && element.gender === 'MALE')
                                         }))
 
-                    var femaleBlock = new StudentBlock('Girls', 'FEMALE', list.filter(function(element){
+                    var femaleBlock = new StudentBlock('Girls', ['FEMALE'], list.filter(function(element){
                                         return (element.teacherId  === id && element.gender === 'FEMALE')
                                         }) )
 
 
             this.studentBlocks = [maleBlock, femaleBlock]
             
-            var AcademicCalculator = function () {
-                var academicAvg = 0
-                var read = 0
-                var math = 0
-                var writing = 0
+                    var AcademicCalculator = function () {
+                        var academicAvg = 0
+                        var read = 0
+                        var math = 0
+                        var writing = 0
 
-                students.forEach(function(element){
+                        students.forEach(function(element){
                             read    += element.scores['Reading']
                             math    += element.scores['Writing']
                             writing += element.scores['Math']
                         })
-                academicAvg = Math.round( (read + math + writing)/ (3 * students.length) )
+                        academicAvg = Math.round( (read + math + writing)/ (3 * students.length) *10) /10
 
-                return {
-                        academicAvg : academicAvg,
-                        read : read/students.length,
-                        math : math/students.length,
-                        writing : writing/students.length,
-                        }
-            }
+                        return {
+                            academicAvg : academicAvg,
+                            read : Math.round (read/students.length *10) /10 ,
+                            math : Math.round (math/students.length * 10) /10,
+                            writing : Math.round(writing/students.length * 10) /10,
+                            }
+                    }
 
             this.academic       = AcademicCalculator()
 
-            var lifeSkillsCalculator     = function () {
-                var lifeSkillsAvg = 0
-                var behavior = 0
-                var workSkills = 0
-                students.forEach(function(element){
-                    behavior    += element.scores['Behavior']
-                    workSkills    += element.scores['WorkSkills']
+                    var lifeSkillsCalculator     = function () {
+                        var lifeSkillsAvg = 0
+                        var behavior = 0
+                        var workSkills = 0
+                        students.forEach(function(element){
+                            behavior    += element.scores['Behavior']
+                            workSkills    += element.scores['WorkSkills']
                     
-                })
-                lifeSkillsAvg = Math.round( (behavior + workSkills)/ (2 * students.length) )
+                        })
+                        lifeSkillsAvg = Math.round( (behavior + workSkills)/ (2 * students.length) *10) /10
 
-                return {
+                        return {
                             lifeSkillsAvg : lifeSkillsAvg,
-                            behavior : behavior/students.length,
-                            workSkills : workSkills/students.length,
+                            behavior : Math.round(behavior/students.length *10) / 10,
+                            workSkills : Math.round(workSkills/students.length *10) /10,
                         }
 
-            }
+                    }
             
             this.lifeSkills      = lifeSkillsCalculator()
 
-            this.tags          = []
+            this.tags            = []
             
-            this.lastTeacher    = [] 
+            this.lastTeacher     = [] 
 
             //push our new classRoom object into our list of classRooms 
             classRoomFactoryList.push(this)
@@ -332,7 +313,7 @@ angular.module('myApp')
         var classRoom1 = new ClassRoom(1, 'Jessica', true, studentFactoryList)
         var classRoom2 = new ClassRoom(2, 'Gordon', true, studentFactoryList)
         var classRoom3 = new ClassRoom(3, 'Gabriel',true, studentFactoryList)
-        var classRoom4 = new ClassRoom(4, 'Marie', true, studentFactoryList)
+        var classRoom4 = new ClassRoom(4, 'Marie', false, studentFactoryList)
 
 
         var schoolGradeFactoryList =[]
@@ -344,12 +325,27 @@ angular.module('myApp')
             this.id             = id 
             this.classRoomList  = classRoomList
 
+            var studentCounter = function () {
+                var counter = 0
+                classRoomList.forEach(function(element){
+                    console.log('classRoomList elements:', element)
+                    element.studentBlocks.forEach(function(element){
+                        counter += element.studentList.length
+                        console.log('elment.studentBlocks elements:', element)
+                        console.log('block length:', element.studentList.length)
+                    })
+                })
+                return counter
+            }
+            this.studentCount = studentCounter()
+            console.log('Is this my count:', this.studentCount)
+
             //push our new studentGrade object into our list of studentGradeLevels
             schoolGradeFactoryList.push(this)
 
         }
 
-        SchoolGrade('Grade3', 3, classRoomFactoryList)
+        SchoolGrade('3rd Grade', 3, classRoomFactoryList)
 
 
 

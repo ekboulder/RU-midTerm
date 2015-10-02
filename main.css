@@ -1,5 +1,6 @@
 body {
 	font-family: 'Montserrat', sans-serif;
+	position: relative;
 }
 
 
@@ -96,6 +97,9 @@ body {
 .gradeLevelTitle {
 	font-size: 3rem;	
 	font-weight: bold;
+	padding-top: 15px;
+	padding-right: 15px;
+	color: white;
 }
 
 .gradeLevelclassRoomsPreview {
@@ -139,10 +143,20 @@ body {
 }
 
 .classRoomTeacher {
+	text-align: center;
+	line-height: 50px;
+	vertical-align: middle;
+	padding-top: 20px;
+	/*border: solid 3px #009688;*/
+}
+
+.classRoomTeacher  h2 {
+	vertical-align: middle;
 	/*border: solid 3px #009688;*/
 }
 
 .classRoomDashboard {
+	padding: 10px;
 	/*border: solid 3px #009688;*/
 }
 
@@ -150,11 +164,28 @@ body {
 	/*border: solid 3px #009688;*/
 }
 
+.classRoomAcademicAvg, .classRoomLifeSkillsAvg, .classRoomLastTeacher, .classRoomIdentified {
+	text-align: center;
+	height: 50px;
+	background-color: #FFFFFF; /* white */
+	margin: 2px;
+}
+
+.header {
+	text-align: center;
+	border-bottom: solid 3px #607D8B; /*Blue Grey 500*/
+	margin: auto;
+}
+
+
 .classRoomLower {
 	/*border: solid 3px #009688;*/
 }
 
 .classRoomBody {
+	/*max-height: 75vh;*/
+	/*overflow: scroll;*/
+
 	/*border: solid 3px #009688;*/
 }
 
@@ -165,6 +196,8 @@ body {
 
 .genderList {
 	padding : 5px;
+	/*height: 5rem;*/
+	/*margin: 3px;*/
 }
 
 .Boys {
@@ -177,25 +210,31 @@ body {
 }
 
 .Red {
-	background-color: red;
+	background-color: #E57373; /*Red 300*/
 }
 
 .Yellow {
-	background-color: yellow;
+	background-color: #FFF176; /*Yellow 300*/
 }
-.orange {
-	background-color: orange;
+.orange { 
+	background-color: #FFB74D; /*Orange 300*/
 }
 .Green {
-	background-color: green;
+	background-color: #81C784; /*Green 300*/
 }
 
 .Purple {
-	background-color: purple;
+	background-color: #BA68C8; /*Purple 300*/
 }
 
 .genderListHeader {
-	border: solid 1px;
+	/*border: solid 1px;*/
+	background-color: #FFFFFF;; /*Blue Grey 500*/
+	text-align: center;
+	height: 3rem;
+	font-weight: bold;
+	padding-top: 0.5rem;
+
 }
 
 /*************/
@@ -241,8 +280,31 @@ body {
 
 }
 
+/*************/
+
+/*Student Profile*/
+
+/*.studentProfileShadow {
+	position: absolute;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0 , 0, 0, 0.6);
+	z-index: 10000;
+}
+.studentProfile {
+	position: absolute;
+	width: 50%;
+	left: 25%;
+	top: 100px;
+	padding: 50px;
+	
+	background-color: white;
+	z-index: 10001;
+
+}*/
 
 /*************/
+
 
 
 
